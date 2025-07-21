@@ -12,62 +12,95 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <style>
-        /* Custom Styles - Consistent with main portfolio */
+        /* --- Base Styles & Variables (Consistent with index.html) --- */
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-light: #f1f5f9;
-            --text-dark: #e2e8f0;
-            --text-light: #1e293b;
-            --slate-800: #1e293b;
-            --slate-700: #334155;
-            --slate-500: #64748b;
-            --slate-400: #94a3b8;
-            --slate-300: #cbd5e1;
+            --bg-dark: #0f172a; /* slate-900 */
+            --bg-light: #f8fafc; /* slate-50 */
+            --text-dark: #e2e8f0; /* slate-200 */
+            --text-light: #0f172a; /* slate-900 */
+            --border-dark: #334155; /* slate-700 */
+            --border-light: #e2e8f0; /* slate-200 */
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-dark);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
         
-        .dark body {
-            --bg-dark: #0a0a0a;
-            --text-dark: #e2e8f0;
+        html.dark body {
             background-color: var(--bg-dark);
             color: var(--text-dark);
         }
 
         html:not(.dark) body {
-             --bg-dark: #f1f5f9;
-             --text-dark: #1e293b;
-             background-color: var(--bg-dark);
-             color: var(--text-dark);
+            background-color: var(--bg-light);
+            color: var(--text-light);
         }
 
-        .gradient-text {
-            background: linear-gradient(to right, #38bdf8, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* --- Aurora Background Effect --- */
+        .aurora-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
         }
 
+        .aurora {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+        }
+
+        .aurora-1 {
+            width: 500px;
+            height: 500px;
+            background: #38bdf8; /* sky-500 */
+            top: -150px;
+            left: -150px;
+            animation: moveAurora1 20s infinite alternate ease-in-out;
+        }
+
+        .aurora-2 {
+            width: 400px;
+            height: 400px;
+            background: #a78bfa; /* violet-400 */
+            top: 50px;
+            right: -100px;
+            animation: moveAurora2 25s infinite alternate ease-in-out;
+        }
+        
+        html:not(.dark) .aurora {
+             opacity: 0.2;
+        }
+
+        @keyframes moveAurora1 {
+            from { transform: translate(-150px, -150px) rotate(0deg); }
+            to { transform: translate(100px, 150px) rotate(180deg); }
+        }
+
+        @keyframes moveAurora2 {
+            from { transform: translate(-100px, 50px) rotate(0deg); }
+            to { transform: translate(150px, -100px) rotate(-180deg); }
+        }
+
+        /* --- Glass Effect --- */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.5); /* slate-800/50 */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dark .glass-effect {
-             background: rgba(15, 23, 42, 0.5);
-             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         html:not(.dark) .glass-effect {
@@ -75,59 +108,68 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Light mode specific text colors */
-        html:not(.dark) .text-slate-300 { color: var(--slate-700); }
-        html:not(.dark) .text-slate-400 { color: var(--slate-500); }
-        html:not(.dark) .text-slate-500 { color: #64748b; }
-        html:not(.dark) .text-white { color: #1e293b; }
-        
-        /* Light mode background/border colors */
-        html:not(.dark) .border-slate-800 { border-color: #e2e8f0; }
-        html:not(.dark) .bg-slate-700\/50 { background-color: rgba(226, 232, 240, 0.5); }
-        html:not(.dark) .hover\:bg-slate-600\/50:hover { background-color: rgba(203, 213, 225, 0.5); }
+        /* --- Text & Links --- */
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Light Mode Overrides --- */
+        html:not(.dark) .text-slate-300 { color: #475569; } /* slate-600 */
+        html:not(.dark) .text-slate-400 { color: #64748b; } /* slate-500 */
+        html:not(.dark) .text-white { color: #0f172a; } /* slate-900 */
+        html:not(.dark) .border-slate-800 { border-color: var(--border-light); }
+        html:not(.dark) .bg-slate-700\/50 { background-color: rgba(226, 232, 240, 0.7); }
+        html:not(.dark) .hover\:bg-slate-700\/50:hover { background-color: rgba(203, 213, 225, 0.7); }
     </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased relative">
+
+    <div class="aurora-background">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+    </div>
 
     <!-- Header -->
     <header id="header" class="sticky top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold tracking-wider gradient-text">MSY</a>
-            <div class="flex items-center space-x-4">
-                 <div id="languageSwitcher" class="flex items-center space-x-2">
-                    <button onclick="setLanguage('en')" class="px-3 py-1 text-sm rounded-md bg-slate-700/50 hover:bg-slate-600/50 transition-colors">EN</button>
-                    <button onclick="setLanguage('id')" class="px-3 py-1 text-sm rounded-md bg-slate-700/50 hover:bg-slate-600/50 transition-colors">ID</button>
+            <a href="index.html" class="text-2xl font-extrabold tracking-wider gradient-text">MSY</a>
+            <div class="flex items-center space-x-2">
+                 <div id="languageSwitcher" class="flex items-center space-x-1 p-1 rounded-full bg-slate-700/50">
+                    <button onclick="setLanguage('en')" class="px-3 py-1 text-sm rounded-full transition-colors">EN</button>
+                    <button onclick="setLanguage('id')" class="px-3 py-1 text-sm rounded-full transition-colors">ID</button>
                 </div>
-                 <button id="theme-toggle" type="button" class="p-2 rounded-md text-slate-300 hover:bg-slate-700/50 focus:outline-none">
-                    <i id="theme-toggle-dark-icon" data-feather="moon" class="w-6 h-6"></i>
-                    <i id="theme-toggle-light-icon" data-feather="sun" class="w-6 h-6 hidden"></i>
+                 <button id="theme-toggle" type="button" class="p-2 rounded-full text-slate-300 hover:bg-slate-700/50 focus:outline-none transition-colors">
+                    <i id="theme-toggle-dark-icon" data-feather="moon" class="w-5 h-5"></i>
+                    <i id="theme-toggle-light-icon" data-feather="sun" class="w-5 h-5 hidden"></i>
                 </button>
-                <a href="index.html" id="backButton" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-sm">
-                    Back to Portfolio
+                <a href="index.html" id="backButton" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-sky-500/30 text-sm">
+                    Back
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-16 md:py-24">
+    <main class="container mx-auto px-6 py-16 md:py-24 relative z-10">
 
         <!-- Applications Section -->
         <section id="applications">
-            <div class="text-center mb-12">
-                <h1 id="pageTitle" class="text-3xl md:text-4xl font-bold mb-2">My Applications</h1>
-                <p id="pageSubtitle" class="text-lg text-slate-400">Here are some applications I've built to enhance my programming skills.</p>
+            <div class="text-center mb-16">
+                <h1 id="pageTitle" class="text-4xl md:text-5xl font-extrabold mb-2">My Applications</h1>
+                <p id="pageSubtitle" class="text-lg text-slate-400">A collection of projects built to hone my skills.</p>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-12">
+            <div class="grid md:grid-cols-2 gap-8">
                 
                 <!-- App Card 1 -->
-                <div class="app-card glass-effect rounded-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-sky-500/20">
+                <div class="app-card">
                     <img src="app1.png" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e2e8f0?text=App+1';" 
-                         alt="Application 1" class="w-full h-200 object-cover">
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+1';" 
+                         alt="Application 1" class="w-full h-200 object-cover rounded-t-lg">
                     <div class="p-6">
-                        <h3 id="app1Title" class="text-xl font-semibold mb-2 text-white">Group Selection App</h3>
+                        <h3 id="app1Title" class="text-xl font-bold mb-2 text-white">Group Selection App</h3>
                         <p id="app1Desc" class="text-slate-400">
                             Used for teaching and learning activities in schools, this application is used to regularly select group members for group assignments.
                         </p>
@@ -135,12 +177,12 @@
                 </div>
 
                 <!-- App Card 2 -->
-                <div class="app-card glass-effect rounded-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20">
+                <div class="app-card">
                     <img src="app2.png" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e2e8f0?text=App+2';" 
-                         alt="Application 2" class="w-full h-200 object-cover">
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+2';" 
+                         alt="Application 2" class="w-full h-200 object-cover rounded-t-lg">
                     <div class="p-6">
-                        <h3 id="app2Title" class="text-xl font-semibold mb-2 text-white">Dental Health Information System</h3>
+                        <h3 id="app2Title" class="text-xl font-bold mb-2 text-white">Dental Health Information System</h3>
                         <p id="app2Desc" class="text-slate-400">
                             An Information System for a dental health organization to facilitate and streamline dental services.
                         </p>
@@ -148,14 +190,14 @@
                 </div>
 
                 <!-- App Card 3 for Portrait Image -->
-                <div class="app-card glass-effect rounded-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-teal-500/20 flex flex-col md:flex-row">
+                <div class="app-card flex flex-col md:flex-row md:col-span-2">
                     <div class="md:w-1/3">
                          <img src="app3.png" 
-                             onerror="this.onerror=null;this.src='https://placehold.co/400x600/1f2937/e2e8f0?text=App+3+Portrait';" 
-                             alt="Application 3" class="w-full h-full object-cover">
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x600/0f172a/e2e8f0?text=App+3+Portrait';" 
+                             alt="Application 3" class="w-full h-full object-cover md:rounded-l-lg md:rounded-r-none rounded-t-lg">
                     </div>
                     <div class="md:w-2/3 p-6 flex flex-col justify-center">
-                        <h3 id="app3Title" class="text-xl font-semibold mb-2 text-white">Concrete Calculator</h3>
+                        <h3 id="app3Title" class="text-xl font-bold mb-2 text-white">Concrete Calculator</h3>
                         <p id="app3Desc" class="text-slate-400">
                            A concrete calculator application designed for use in the field of civil engineering to estimate material quantities.
                         </p>
@@ -163,12 +205,12 @@
                 </div>
 
                 <!-- App Card 4 -->
-                <div class="app-card glass-effect rounded-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20">
+                <div class="app-card">
                     <img src="app4.png" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e2e8f0?text=App+4';" 
-                         alt="Application 4" class="w-full h-80 object-cover">
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+4';" 
+                         alt="Application 4" class="w-full h-200 object-cover rounded-t-lg">
                     <div class="p-6">
-                        <h3 id="app4Title" class="text-xl font-semibold mb-2 text-white">Reservation of Mini Soccer Field Information System</h3>
+                        <h3 id="app4Title" class="text-xl font-bold mb-2 text-white">Reservation of Mini Soccer Field Information System</h3>
                         <p id="app4Desc" class="text-slate-400">
                             An Information System for a mini soccer sport services.
                         </p>
@@ -197,13 +239,13 @@
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
         if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.classList.remove('dark');
             themeToggleLightIcon.classList.remove('hidden');
             themeToggleDarkIcon.classList.add('hidden');
-            document.documentElement.classList.remove('dark');
         } else {
+            document.documentElement.classList.add('dark');
             themeToggleLightIcon.classList.add('hidden');
             themeToggleDarkIcon.classList.remove('hidden');
-            document.documentElement.classList.add('dark');
         }
 
         themeToggleBtn.addEventListener('click', function() {
@@ -228,12 +270,19 @@
             }
         });
 
+        // --- Dynamic Class Application for App Cards ---
+        function applyCardStyles() {
+            const appCardClasses = 'glass-effect rounded-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-sky-500/20 border border-transparent hover:border-sky-500';
+            document.querySelectorAll('.app-card').forEach(el => el.className = `${el.className} ${appCardClasses}`);
+        }
+        applyCardStyles();
+
         // --- Language Switcher ---
         let currentLanguage = 'en'; // Default language
         const translations = {
             en: {
                 pageTitle: "My Applications",
-                pageSubtitle: "Here are some applications I've built to enhance my programming skills.",
+                pageSubtitle: "A collection of projects built to hone my skills.",
                 app1Title: "Group Selection App",
                 app1Desc: "Used for teaching and learning activities in schools, this application is used to regularly select group members for group assignments.",
                 app2Title: "Dental Health Information System",
@@ -242,12 +291,12 @@
                 app3Desc: "A concrete calculator application designed for use in the field of civil engineering to estimate material quantities.",
                 app4Title: "Reservation of Mini Soccer Field Information System",
                 app4Desc: "An Information System for a mini soccer sport services.",
-                backButton: "Back to Portfolio",
+                backButton: "Back",
                 footerText: "© 2025 Muhammad Syafiq Yusuf. All rights reserved."
             },
             id: {
                 pageTitle: "Aplikasi Saya",
-                pageSubtitle: "Berikut adalah beberapa aplikasi yang telah saya buat untuk meningkatkan keterampilan pemrograman saya.",
+                pageSubtitle: "Kumpulan proyek yang dibuat untuk mengasah keterampilan saya.",
                 app1Title: "Aplikasi Pemilihan Kelompok",
                 app1Desc: "Digunakan untuk kegiatan belajar mengajar di sekolah, aplikasi ini digunakan untuk melakukan pemilihan anggota kelompok secara teratur dalam tugas kelompok.",
                 app2Title: "Sistem Informasi Kesehatan Gigi",
@@ -256,7 +305,7 @@
                 app3Desc: "Aplikasi kalkulator beton yang dirancang untuk digunakan dalam bidang teknik sipil untuk memperkirakan jumlah material.",
                 app4Title: "Sistem Informasi Reservasi Lapangan Mini Soccer",
                 app4Desc: "Sebuah Sistem Informasi untuk layanan olahraga mini soccer.",
-                backButton: "Kembali ke Portofolio",
+                backButton: "Kembali",
                 footerText: "© 2025 Muhammad Syafiq Yusuf. Hak cipta dilindungi undang-undang."
             }
         };
@@ -264,19 +313,25 @@
         function setLanguage(lang) {
             currentLanguage = lang;
             const t = translations[lang];
-
-            document.getElementById('pageTitle').innerText = t.pageTitle;
-            document.getElementById('pageSubtitle').innerText = t.pageSubtitle;
-            document.getElementById('app1Title').innerText = t.app1Title;
-            document.getElementById('app1Desc').innerText = t.app1Desc;
-            document.getElementById('app2Title').innerText = t.app2Title;
-            document.getElementById('app2Desc').innerText = t.app2Desc;
-            document.getElementById('app3Title').innerText = t.app3Title;
-            document.getElementById('app3Desc').innerText = t.app3Desc;
-            document.getElementById('app4Title').innerText = t.app4Title;
-            document.getElementById('app4Desc').innerText = t.app4Desc;
-            document.getElementById('backButton').innerText = t.backButton;
-            document.getElementById('footerText').innerText = t.footerText;
+            const elements = {
+                'pageTitle': t.pageTitle, 'pageSubtitle': t.pageSubtitle,
+                'app1Title': t.app1Title, 'app1Desc': t.app1Desc,
+                'app2Title': t.app2Title, 'app2Desc': t.app2Desc,
+                'app3Title': t.app3Title, 'app3Desc': t.app3Desc,
+                'app4Title': t.app4Title, 'app4Desc': t.app4Desc,
+                'backButton': t.backButton, 'footerText': t.footerText
+            };
+            for (const id in elements) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerText = elements[id];
+                }
+            }
+            // Update active language button style
+            document.querySelectorAll('#languageSwitcher button').forEach(btn => {
+                btn.classList.toggle('bg-sky-500', btn.innerText.toLowerCase() === lang);
+                btn.classList.toggle('text-white', btn.innerText.toLowerCase() === lang);
+            });
         }
 
         // Set initial language on page load
