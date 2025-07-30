@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Super Lengkap</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+        :root {
+            --primary-color: #007BFF;
+            --primary-dark: #0056b3;
+            --secondary-color: #6c757d;
+            --background-color: #f0f2f5;
+            --card-background: #ffffff;
+            --text-color: #333;
+            --border-color: #dee2e6;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --sci-bg: #22252D;
+            --sci-display-bg: #292D36;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-background);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header h1 {
+            text-align: center;
+            color: var(--primary-color);
+            padding: 20px;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        nav::-webkit-scrollbar { display: none; }
+
+        .nav-button {
+            padding: 15px 10px;
+            flex-shrink: 0;
+            flex-grow: 1;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-button.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        main { padding: 25px; }
+        .calculator-panel { display: none; }
+        .calculator-panel.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Styles */
+        .calc-section { margin-bottom: 20px; }
+        .calc-section h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; }
+        .input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .input-row label, .input-field label { font-weight: 600; min-width: 80px; flex-shrink: 0; }
+        .input-row select, .input-row input, .input-field input, .calc-section button {
+            width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 1rem;
+        }
+        .calc-section button { background-color: var(--primary-color); color: white; border: none; cursor: pointer; font-weight: 600; }
+        .result-box { margin-top: 20px; padding: 15px; background-color: #e9f5ff; border-left: 5px solid var(--primary-color); border-radius: 8px; text-align: center; }
+        .result-box .label { font-size: 0.9rem; color: var(--secondary-color); }
+        .result-box .value { font-size: 1.8rem; font-weight: 700; color: var(--primary-dark); }
+        .hidden { display: none !important; }
+
+        /* Kalkulator Ilmiah Specific */
+        #calc-ilmiah .calculator-body { max-width: 380px; margin: auto; background-color: var(--sci-bg); border-radius: 20px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #calc-ilmiah .display-container { position: relative; margin-bottom: 20px; }
+        #calc-ilmiah #sci-display { width: 100%; height: 70px; background-color: var(--sci-display-bg); border: none; border-radius: 10px; color: white; font-size: 2.2rem; text-align: right; padding: 10px 20px; box-sizing: border-box; font-family: 'Roboto Mono', monospace; }
+        #calc-ilmiah #sci-mode-indicator { position: absolute; top: 5px; left: 15px; color: #888; font-size: 0.8rem; }
+        #calc-ilmiah .buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        #calc-ilmiah button { padding: 0; font-family: 'Roboto Mono', monospace; height: 55px; font-size: 1.1rem; background-color: #272B33; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        #calc-ilmiah button:active { transform: translateY(1px); }
+        #calc-ilmiah .sci-operator { background-color: #2f333c; color: #00bcd4; }
+        #calc-ilmiah .sci-function { background-color: #4CAF50; color: white; }
+        #calc-ilmiah #sci-equals { grid-column: span 2; background-color: #00bcd4; color: var(--sci-bg); }
+        #calc-ilmiah #sci-clear { background-color: #F44336; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header><h1>Kalkulator Super Lengkap</h1></header>
+    <nav>
+        <button class="nav-button active" onclick="showPanel('calc-ilmiah', this)">Ilmiah</button>
+        <button class="nav-button" onclick="showPanel('calc-fisika', this)">Fisika</button>
+        <button class="nav-button" onclick="showPanel('calc-luas-kubik', this)">Luas & Volume</button>
+        <button class="nav-button" onclick="showPanel('calc-bangun-ruang', this)">Bangun Ruang</button>
+        <button class="nav-button" onclick="showPanel('calc-satuan-data', this)">Satuan Data</button>
+        <button class="nav-button" onclick="showPanel('calc-satuan-panjang', this)">Satuan Panjang</button>
+        <button class="nav-button" onclick="showPanel('calc-satuan-volume', this)">Satuan Volume</button>
+        <button class="nav-button" onclick="showPanel('calc-trigonometri', this)">Trigonometri</button>
+    </nav>
+
+    <main>
+        <!-- Panel Kalkulator Ilmiah -->
+        <div id="calc-ilmiah" class="calculator-panel active">
+            <div class="calculator-body">
+                <div class="display-container"><input type="text" id="sci-display" readonly><span id="sci-mode-indicator">DEG</span></div>
+                <div class="buttons">
+                    <button class="sci-function" onclick="sciFunc.toggleMode()">Deg/Rad</button><button onclick="sciFunc.appendToDisplay('(')">(</button><button onclick="sciFunc.appendToDisplay(')')">)</button><button class="sci-operator" onclick="sciFunc.backspace()">⌫</button><button id="sci-clear" class="sci-operator" onclick="sciFunc.clearDisplay()">C</button>
+                    <button class="sci-function" onclick="sciFunc.appendToDisplay('sin(')">sin</button><button class="sci-function" onclick="sciFunc.appendToDisplay('cos(')">cos</button><button class="sci-function" onclick="sciFunc.appendToDisplay('tan(')">tan</button><button class="sci-function" onclick="sciFunc.appendToDisplay('**')">xʸ</button><button class="sci-operator" onclick="sciFunc.appendToDisplay('/')">÷</button>
+                    <button class="sci-function" onclick="sciFunc.appendToDisplay('log(')">log</button><button onclick="sciFunc.appendToDisplay('7')">7</button><button onclick="sciFunc.appendToDisplay('8')">8</button><button onclick="sciFunc.appendToDisplay('9')">9</button><button class="sci-operator" onclick="sciFunc.appendToDisplay('*')">×</button>
+                    <button class="sci-function" onclick="sciFunc.appendToDisplay('ln(')">ln</button><button onclick="sciFunc.appendToDisplay('4')">4</button><button onclick="sciFunc.appendToDisplay('5')">5</button><button onclick="sciFunc.appendToDisplay('6')">6</button><button class="sci-operator" onclick="sciFunc.appendToDisplay('-')">−</button>
+                    <button class="sci-function" onclick="sciFunc.appendToDisplay('sqrt(')">√</button><button onclick="sciFunc.appendToDisplay('1')">1</button><button onclick="sciFunc.appendToDisplay('2')">2</button><button onclick="sciFunc.appendToDisplay('3')">3</button><button class="sci-operator" onclick="sciFunc.appendToDisplay('+')">+</button>
+                    <button onclick="sciFunc.appendToDisplay('!')">n!</button><button onclick="sciFunc.appendToDisplay('Math.PI')">π</button><button onclick="sciFunc.appendToDisplay('0')">0</button><button onclick="sciFunc.appendToDisplay('.')">.</button><button id="sci-equals" onclick="sciFunc.calculateResult()">=</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel Kalkulator Fisika -->
+        <div id="calc-fisika" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Kalkulator Fisika Sederhana</h2>
+                <div class="input-row"><label for="fisika-formula-select">Pilih Rumus</label><select id="fisika-formula-select"></select></div>
+                <div id="fisika-inputs"></div>
+                <div class="result-box"><div class="label">Hasil</div><div class="value" id="fisika-result">-</div></div>
+            </div>
+        </div>
+
+        <!-- Panel Kalkulator Luas & Kubik -->
+        <div id="calc-luas-kubik" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Opsi Perhitungan</h2>
+                <div class="options" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                    <input type="radio" id="mode-persegi" name="luas_kubik_mode" value="persegi" checked style="display: none;">
+                    <label for="mode-persegi" style="flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid var(--border-color);">Persegi (m²)</label>
+                    <input type="radio" id="mode-kubik" name="luas_kubik_mode" value="kubik" style="display: none;">
+                    <label for="mode-kubik" style="flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid var(--border-color);">Kubik (m³)</label>
+                </div>
+                <div class="input-field">
+                    <label>Panjang (m)</label>
+                    <div class="input-row"><input type="range" id="panjang-slider" min="0" max="100" value="10" step="0.1" style="flex-grow: 1;"><input type="number" id="panjang-number" min="0" max="100" value="10" step="0.1"></div>
+                </div>
+                <div class="input-field">
+                    <label>Lebar (m)</label>
+                    <div class="input-row"><input type="range" id="lebar-slider" min="0" max="100" value="5" step="0.1" style="flex-grow: 1;"><input type="number" id="lebar-number" min="0" max="100" value="5" step="0.1"></div>
+                </div>
+                <div class="input-field hidden" id="tinggi-field">
+                    <label>Tinggi (m)</label>
+                    <div class="input-row"><input type="range" id="tinggi-slider" min="0" max="100" value="2" step="0.1" style="flex-grow: 1;"><input type="number" id="tinggi-number" min="0" max="100" value="2" step="0.1"></div>
+                </div>
+                <div class="result-box">
+                    <div class="label" id="lk-result-label">Hasil Luas</div>
+                    <div class="value" id="lk-result-value">50.00 m²</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Panel Kalkulator Bangun Ruang -->
+        <div id="calc-bangun-ruang" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Kalkulator Bangun Ruang</h2>
+                 <div class="input-row">
+                    <label for="shape-select">Pilih Bentuk</label>
+                    <select id="shape-select">
+                        <option value="kubus">Kubus</option>
+                        <option value="balok">Balok</option>
+                        <option value="tabung">Tabung (Silinder)</option>
+                        <option value="bola">Bola</option>
+                        <option value="kerucut">Kerucut</option>
+                    </select>
+                </div>
+            </div>
+            <div class="calc-section" id="shape-inputs"></div>
+            <div class="result-box">
+                <div class="label">Hasil</div>
+                <div id="shape-result">Pilih bentuk dan masukkan nilai.</div>
+            </div>
+        </div>
+
+        <!-- Panel Kalkulator Satuan Data (BARU) -->
+        <div id="calc-satuan-data" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Konversi Satuan Data</h2>
+                <div class="input-row">
+                    <div style="flex:1"><label>Dari</label><input type="number" id="data-from-value" value="1024"><select id="data-from-unit"></select></div>
+                    <span class="converter-icon" style="font-size: 1.5rem; margin: 0 10px; color: var(--secondary-color);">⇌</span>
+                    <div style="flex:1"><label>Ke</label><input type="number" id="data-to-value" readonly><select id="data-to-unit"></select></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Kalkulator Satuan Panjang -->
+        <div id="calc-satuan-panjang" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Konversi Satuan Panjang</h2>
+                <div class="input-row">
+                    <div style="flex:1"><label>Dari</label><input type="number" id="panjang-from-value" value="1"><select id="panjang-from-unit"></select></div>
+                    <span class="converter-icon" style="font-size: 1.5rem; margin: 0 10px; color: var(--secondary-color);">⇌</span>
+                    <div style="flex:1"><label>Ke</label><input type="number" id="panjang-to-value" readonly><select id="panjang-to-unit"></select></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Kalkulator Satuan Volume -->
+        <div id="calc-satuan-volume" class="calculator-panel">
+             <div class="calc-section">
+                <h2>Konversi Satuan Volume</h2>
+                <div class="input-row">
+                    <div style="flex:1"><label>Dari</label><input type="number" id="volume-from-value" value="1"><select id="volume-from-unit"></select></div>
+                    <span class="converter-icon" style="font-size: 1.5rem; margin: 0 10px; color: var(--secondary-color);">⇌</span>
+                    <div style="flex:1"><label>Ke</label><input type="number" id="volume-to-value" readonly><select id="volume-to-unit"></select></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Kalkulator Trigonometri -->
+        <div id="calc-trigonometri" class="calculator-panel">
+            <div class="calc-section">
+                <h2>Kalkulator Trigonometri</h2>
+                <div class="options" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                    <input type="radio" id="trigo-deg" name="trigo_mode" value="deg" checked style="display: none;"><label for="trigo-deg" style="flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid var(--border-color);">Derajat (DEG)</label>
+                    <input type="radio" id="trigo-rad" name="trigo_mode" value="rad" style="display: none;"><label for="trigo-rad" style="flex: 1; text-align: center; padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid var(--border-color);">Radian (RAD)</label>
+                </div>
+                 <div class="input-row"><label for="trigo-input">Nilai</label><input type="number" id="trigo-input" placeholder="Masukkan nilai..."></div>
+                 <div class="btn-group" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <button onclick="calcTrigo('sin')">sin(x)</button><button onclick="calcTrigo('cos')">cos(x)</button><button onclick="calcTrigo('tan')">tan(x)</button>
+                    <button onclick="calcTrigo('asin')">asin(x)</button><button onclick="calcTrigo('acos')">acos(x)</button><button onclick="calcTrigo('atan')">atan(x)</button>
+                </div>
+                <div class="result-box"><div class="label">Hasil</div><div class="value" id="trigo-result">-</div></div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // --- UTAMA: Navigasi Panel ---
+    function showPanel(panelId, element) {
+        document.querySelectorAll('.calculator-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(panelId).classList.add('active');
+        document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    // --- Inisialisasi Semua Kalkulator ---
+
+    // Kalkulator Ilmiah
+    const sciFunc = (function initIlmiah() {
+        const display = document.querySelector('#calc-ilmiah #sci-display');
+        const modeIndicator = document.querySelector('#calc-ilmiah #sci-mode-indicator');
+        let isDegrees = true;
+        function factorial(n) { if (n < 0 || n % 1 !== 0) return NaN; if (n === 0 || n === 1) return 1; let result = 1; for (let i = 2; i <= n; i++) result *= i; return result; }
+        return {
+            appendToDisplay(value) { const map = {'Math.PI': 'π', 'sqrt(': '√', '**': '^'}; display.value += map[value] || value; },
+            clearDisplay() { display.value = ''; },
+            backspace() { display.value = display.value.slice(0, -1); },
+            toggleMode() { isDegrees = !isDegrees; modeIndicator.textContent = isDegrees ? 'DEG' : 'RAD'; },
+            calculateResult() {
+                try {
+                    let expr = display.value.replace(/π/g, 'Math.PI').replace(/√/g, 'Math.sqrt').replace(/ln/g, 'Math.log').replace(/log/g, 'Math.log10').replace(/\^/g, '**');
+                    expr = expr.replace(/(\d+)!/g, (_, num) => factorial(parseInt(num)));
+                    ['sin', 'cos', 'tan'].forEach(func => {
+                        const regex = new RegExp(`(Math\\.)?${func}\\(([^)]+)\\)`, 'g');
+                        expr = expr.replace(regex, (match, p1, p2) => { let angle = eval(p2); if (isDegrees) angle *= Math.PI / 180; return `Math.${func}(${angle})`; });
+                    });
+                    display.value = Number(eval(expr).toFixed(10));
+                } catch (error) { display.value = 'Error'; }
+            }
+        };
+    })();
+
+    // Kalkulator Fisika
+    (function initFisika() {
+        const formulaSelect = document.getElementById('fisika-formula-select');
+        const inputsContainer = document.getElementById('fisika-inputs');
+        const resultDiv = document.getElementById('fisika-result');
+        const formulas = {
+            kecepatan: { name: 'Kecepatan (v = s/t)', vars: { v: 'Kecepatan (m/s)', s: 'Jarak (meter)', t: 'Waktu (detik)' }, calc: d => ({ v: d.s / d.t, s: d.v * d.t, t: d.s / d.v }) },
+            hukumOhm: { name: 'Hukum Ohm (V = IR)', vars: { V: 'Tegangan (Volt)', I: 'Arus (Ampere)', R: 'Hambatan (Ohm)' }, calc: d => ({ V: d.I * d.R, I: d.V / d.R, R: d.V / d.I }) },
+            gaya: { name: 'Gaya (F = ma)', vars: { F: 'Gaya (Newton)', m: 'Massa (kg)', a: 'Percepatan (m/s²)' }, calc: d => ({ F: d.m * d.a, m: d.F / d.a, a: d.F / d.m }) },
+            energiKinetik: { name: 'Energi Kinetik (EK = ½mv²)', vars: { EK: 'Energi Kinetik (Joule)', m: 'Massa (kg)', v: 'Kecepatan (m/s)' }, calc: d => ({ EK: 0.5 * d.m * d.v**2, m: 2 * d.EK / d.v**2, v: Math.sqrt(2 * d.EK / d.m) }) },
+            dayaListrik: { name: 'Daya Listrik (P = VI)', vars: { P: 'Daya (Watt)', V: 'Tegangan (Volt)', I: 'Arus (Ampere)' }, calc: d => ({ P: d.V * d.I, V: d.P / d.I, I: d.P / d.V }) }
+        };
+        for(const key in formulas) formulaSelect.innerHTML += `<option value="${key}">${formulas[key].name}</option>`;
+        function renderInputs() {
+            const key = formulaSelect.value, config = formulas[key];
+            let inputsHTML = '<div class="input-row"><label for="fisika-target-var">Hitung Untuk</label><select id="fisika-target-var">';
+            for(const varKey in config.vars) inputsHTML += `<option value="${varKey}">${config.vars[varKey]}</option>`;
+            inputsHTML += '</select></div>';
+            for(const varKey in config.vars) inputsHTML += `<div class="input-row" id="row-${varKey}"><label for="input-${varKey}">${config.vars[varKey]}</label><input type="number" id="input-${varKey}" data-key="${varKey}" placeholder="0"></div>`;
+            inputsContainer.innerHTML = inputsHTML;
+            document.getElementById('fisika-target-var').addEventListener('change', updateInputState);
+            inputsContainer.querySelectorAll('input[type="number"]').forEach(input => input.addEventListener('input', calculate));
+            updateInputState();
+        }
+        function updateInputState() {
+            const targetVar = document.getElementById('fisika-target-var').value;
+            inputsContainer.querySelectorAll('input[type="number"]').forEach(input => {
+                const isTarget = input.dataset.key === targetVar;
+                input.readOnly = isTarget;
+                input.style.backgroundColor = isTarget ? '#e9ecef' : 'white';
+                if(isTarget) input.value = '';
+            });
+            calculate();
+        }
+        function calculate() {
+            const key = formulaSelect.value, targetVar = document.getElementById('fisika-target-var').value, config = formulas[key];
+            let values = {}, allValid = true;
+            for(const varKey in config.vars) { if (varKey !== targetVar) { const val = parseFloat(document.getElementById(`input-${varKey}`).value); if (isNaN(val)) allValid = false; values[varKey] = val; } }
+            if (!allValid) { resultDiv.textContent = '-'; document.getElementById(`input-${targetVar}`).value = ''; return; }
+            const result = config.calc(values)[targetVar];
+            resultDiv.textContent = isFinite(result) ? `${result.toFixed(3)} ${config.vars[targetVar].split('(')[1].replace(')','')}` : 'Error';
+            document.getElementById(`input-${targetVar}`).value = isFinite(result) ? result.toFixed(3) : '';
+        }
+        formulaSelect.addEventListener('change', renderInputs); renderInputs();
+    })();
+    
+    // Kalkulator Luas & Kubik
+    (function initLuasKubik() {
+        const modePersegi = document.getElementById('mode-persegi'), modeKubik = document.getElementById('mode-kubik');
+        const pSlider = document.getElementById('panjang-slider'), pNum = document.getElementById('panjang-number');
+        const lSlider = document.getElementById('lebar-slider'), lNum = document.getElementById('lebar-number');
+        const tField = document.getElementById('tinggi-field'), tSlider = document.getElementById('tinggi-slider'), tNum = document.getElementById('tinggi-number');
+        const resLabel = document.getElementById('lk-result-label'), resVal = document.getElementById('lk-result-value');
+        const options = { persegi: modePersegi.nextElementSibling, kubik: modeKubik.nextElementSibling };
+        function calculate() {
+            const p = parseFloat(pNum.value), l = parseFloat(lNum.value);
+            if (isNaN(p) || isNaN(l)) return;
+            if (modePersegi.checked) { resLabel.textContent = 'Hasil Luas'; resVal.innerHTML = `${(p * l).toFixed(2)} m²`; } 
+            else { const t = parseFloat(tNum.value); if (isNaN(t)) return; resLabel.textContent = 'Hasil Volume'; resVal.innerHTML = `${(p * l * t).toFixed(2)} m³`; }
+        }
+        function sync(source, target) { target.value = source.value; calculate(); }
+        function modeChange() {
+            tField.classList.toggle('hidden', !modeKubik.checked);
+            options.persegi.style.backgroundColor = modePersegi.checked ? 'var(--primary-color)' : '';
+            options.persegi.style.color = modePersegi.checked ? 'white' : '';
+            options.kubik.style.backgroundColor = modeKubik.checked ? 'var(--primary-color)' : '';
+            options.kubik.style.color = modeKubik.checked ? 'white' : '';
+            calculate();
+        }
+        modePersegi.addEventListener('change', modeChange); modeKubik.addEventListener('change', modeChange);
+        pSlider.addEventListener('input', () => sync(pSlider, pNum)); pNum.addEventListener('input', () => sync(pNum, pSlider));
+        lSlider.addEventListener('input', () => sync(lSlider, lNum)); lNum.addEventListener('input', () => sync(lNum, lSlider));
+        tSlider.addEventListener('input', () => sync(tSlider, tNum)); tNum.addEventListener('input', () => sync(tNum, tSlider));
+        modeChange();
+    })();
+
+    // Kalkulator Konversi Unit
+    function setupConverter(idPrefix, units) {
+        const fromVal = document.getElementById(`${idPrefix}-from-value`), toVal = document.getElementById(`${idPrefix}-to-value`);
+        const fromUnit = document.getElementById(`${idPrefix}-from-unit`), toUnit = document.getElementById(`${idPrefix}-to-unit`);
+        for (const key in units) { fromUnit.innerHTML += `<option value="${key}">${units[key].name}</option>`; toUnit.innerHTML += `<option value="${key}">${units[key].name}</option>`; }
+        toUnit.selectedIndex = 1;
+        function convert() {
+            const val = parseFloat(fromVal.value), fromFactor = units[fromUnit.value].factor, toFactor = units[toUnit.value].factor;
+            toVal.value = isNaN(val) ? '' : (val * fromFactor / toFactor).toFixed(5);
+        }
+        fromVal.addEventListener('input', convert); fromUnit.addEventListener('change', convert); toUnit.addEventListener('change', convert); convert();
+    }
+    setupConverter('data', { B: { name: 'Byte (B)', factor: 1 }, KB: { name: 'Kilobyte (KB)', factor: 1024 }, MB: { name: 'Megabyte (MB)', factor: 1024**2 }, GB: { name: 'Gigabyte (GB)', factor: 1024**3 }, TB: { name: 'Terabyte (TB)', factor: 1024**4 } });
+    setupConverter('panjang', { m: { name: 'Meter (m)', factor: 1 }, km: { name: 'Kilometer (km)', factor: 1000 }, cm: { name: 'Sentimeter (cm)', factor: 0.01 }, mm: { name: 'Milimeter (mm)', factor: 0.001 }, mi: { name: 'Mil (mi)', factor: 1609.34 }, ft: { name: 'Kaki (ft)', factor: 0.3048 }, in: { name: 'Inci (in)', factor: 0.0254 } });
+    setupConverter('volume', { l: { name: 'Liter (l)', factor: 1 }, ml: { name: 'Mililiter (ml)', factor: 0.001 }, m3: { name: 'Meter Kubik (m³)', factor: 1000 }, gal_us: { name: 'Galon AS (gal)', factor: 3.78541 }, oz_us: { name: 'Ounce AS (oz)', factor: 0.0295735 } });
+    
+    // Kalkulator Bangun Ruang
+    (function initBangunRuang() {
+        const select = document.getElementById('shape-select'), inputsContainer = document.getElementById('shape-inputs'), resultDiv = document.getElementById('shape-result');
+        const formulas = {
+            kubus: { inputs: ['Sisi (s)'], calc: d => ({lp: 6*d.s**2, v: d.s**3}) },
+            balok: { inputs: ['Panjang (p)', 'Lebar (l)', 'Tinggi (t)'], calc: d => ({lp: 2*(d.p*d.l + d.p*d.t + d.l*d.t), v: d.p*d.l*d.t}) },
+            tabung: { inputs: ['Jari-jari (r)', 'Tinggi (t)'], calc: d => ({lp: 2*Math.PI*d.r*(d.r+d.t), v: Math.PI*d.r**2*d.t}) },
+            bola: { inputs: ['Jari-jari (r)'], calc: d => ({lp: 4*Math.PI*d.r**2, v: (4/3)*Math.PI*d.r**3}) },
+            kerucut: { inputs: ['Jari-jari (r)', 'Tinggi (t)'], calc: d => { const s = Math.sqrt(d.r**2 + d.t**2); return {lp: Math.PI*d.r*(d.r+s), v: (1/3)*Math.PI*d.r**2*d.t}} }
+        };
+        function renderInputs() {
+            const shape = select.value, config = formulas[shape];
+            inputsContainer.innerHTML = '';
+            config.inputs.forEach(label => { const key = label.match(/\((.*?)\)/)[1]; inputsContainer.innerHTML += `<div class="input-row"><label>${label}</label><input type="number" class="shape-input" data-key="${key}" placeholder="0"></div>`; });
+            inputsContainer.querySelectorAll('.shape-input').forEach(i => i.addEventListener('input', calculate));
+            calculate();
+        }
+        function calculate() {
+            const shape = select.value, data = {}; let allValid = true;
+            inputsContainer.querySelectorAll('.shape-input').forEach(i => { const val = parseFloat(i.value); if (isNaN(val) || val <= 0) allValid = false; data[i.dataset.key] = val; });
+            if (!allValid) { resultDiv.innerHTML = "Masukkan semua nilai positif."; return; }
+            const res = formulas[shape].calc(data);
+            resultDiv.innerHTML = `<span class="label">Luas Permukaan:</span> <span class="value" style="font-size: 1.2rem;">${res.lp.toFixed(2)}</span><br><span class="label">Volume:</span> <span class="value" style="font-size: 1.2rem;">${res.v.toFixed(2)}</span>`;
+        }
+        select.addEventListener('change', renderInputs); renderInputs();
+    })();
+
+    // Kalkulator Trigonometri
+    function calcTrigo(func) {
+        const inputElem = document.getElementById('trigo-input'), resultElem = document.getElementById('trigo-result');
+        const isDeg = document.getElementById('trigo-deg').checked;
+        let val = parseFloat(inputElem.value);
+        if(isNaN(val)) { resultElem.textContent = "Input tidak valid"; return; }
+        let result;
+        if(['sin', 'cos', 'tan'].includes(func)) { const angle = isDeg ? val * Math.PI / 180 : val; result = Math[func](angle); } 
+        else { if (['asin', 'acos'].includes(func) && (val < -1 || val > 1)) { resultElem.textContent = "Input -1 s/d 1"; return; } let angle = Math[func](val); result = isDeg ? angle * 180 / Math.PI : angle; }
+        resultElem.textContent = result.toFixed(8);
+    }
+    document.querySelectorAll('#calc-trigonometri .options label').forEach(label => {
+        label.addEventListener('click', () => {
+            document.querySelectorAll('#calc-trigonometri .options label').forEach(l => { l.style.backgroundColor = ''; l.style.color = ''; });
+            label.style.backgroundColor = 'var(--primary-color)'; label.style.color = 'white';
+        });
+    });
+    document.querySelector('#calc-trigonometri .options label[for="trigo-deg"]').click();
+</script>
+</body>
+</html>
