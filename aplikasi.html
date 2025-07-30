@@ -82,7 +82,7 @@
         }
         
         html:not(.dark) .aurora {
-             opacity: 0.2;
+            opacity: 0.2;
         }
 
         @keyframes moveAurora1 {
@@ -137,11 +137,11 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-extrabold tracking-wider gradient-text">MSY</a>
             <div class="flex items-center space-x-2">
-                 <div id="languageSwitcher" class="flex items-center space-x-1 p-1 rounded-full bg-slate-700/50">
+                <div id="languageSwitcher" class="flex items-center space-x-1 p-1 rounded-full bg-slate-700/50">
                     <button onclick="setLanguage('en')" class="px-3 py-1 text-sm rounded-full transition-colors">EN</button>
                     <button onclick="setLanguage('id')" class="px-3 py-1 text-sm rounded-full transition-colors">ID</button>
                 </div>
-                 <button id="theme-toggle" type="button" class="p-2 rounded-full text-slate-300 hover:bg-slate-700/50 focus:outline-none transition-colors">
+                <button id="theme-toggle" type="button" class="p-2 rounded-full text-slate-300 hover:bg-slate-700/50 focus:outline-none transition-colors">
                     <i id="theme-toggle-dark-icon" data-feather="moon" class="w-5 h-5"></i>
                     <i id="theme-toggle-light-icon" data-feather="sun" class="w-5 h-5 hidden"></i>
                 </button>
@@ -163,8 +163,8 @@
             
             <div class="grid md:grid-cols-2 gap-8">
                 
-                <!-- App Card 1 -->
-                <div class="app-card">
+                <!-- MODIFIED: App Card 1 is now a clickable link -->
+                <a href="pembagi_kelompok.html" class="app-card block">
                     <img src="app1.png" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+1';" 
                          alt="Application 1" class="w-full h-200 object-cover rounded-t-lg">
@@ -174,10 +174,10 @@
                             Used for teaching and learning activities in schools, this application is used to regularly select group members for group assignments.
                         </p>
                     </div>
-                </div>
+                </a>
 
-                <!-- App Card 2 -->
-                <div class="app-card">
+                <!-- MODIFIED: App Card 2 is now a clickable link -->
+                <a href="dental-health-app.html" class="app-card block">
                     <img src="app2.png" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+2';" 
                          alt="Application 2" class="w-full h-200 object-cover rounded-t-lg">
@@ -187,35 +187,33 @@
                             An Information System for a dental health organization to facilitate and streamline dental services.
                         </p>
                     </div>
-                </div>
+                </a>
 
-                <!-- App Card 3 for Portrait Image -->
-                <div class="app-card flex flex-col md:flex-row md:col-span-2">
-                    <div class="md:w-1/3">
-                         <img src="app3.png" 
-                             onerror="this.onerror=null;this.src='https://placehold.co/400x600/0f172a/e2e8f0?text=App+3+Portrait';" 
-                             alt="Application 3" class="w-full h-full object-cover md:rounded-l-lg md:rounded-r-none rounded-t-lg">
-                    </div>
-                    <div class="md:w-2/3 p-6 flex flex-col justify-center">
-                        <h3 id="app3Title" class="text-xl font-bold mb-2 text-white">Concrete Calculator</h3>
-                        <p id="app3Desc" class="text-slate-400">
-                           A concrete calculator application designed for use in the field of civil engineering to estimate material quantities.
+                <!-- MODIFIED: App Card 3 is now a clickable link -->
+                <a href="kalkulator_super.html" class="app-card block">
+                    <img src="app3.png" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+2';" 
+                         alt="Application 2" class="w-full h-200 object-cover rounded-t-lg">
+                    <div class="p-6">
+                        <h3 id="app2Title" class="text-xl font-bold mb-2 text-white">Aplikasi Kalkulator Super Lengkap</h3>
+                        <p id="app2Desc" class="text-slate-400">
+                            Kalkulator super lengkap yang dilengkapi banyak fitur untuk perhitungan matematika dan fisika.
                         </p>
                     </div>
-                </div>
+                </a>
 
-                <!-- App Card 4 -->
-                <div class="app-card">
+                <!-- MODIFIED: App Card 4 is now a clickable link -->
+                <a href="minisoccer-reservation-app.html" class="app-card block">
                     <img src="app4.png" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f172a/e2e8f0?text=App+4';" 
-                         alt="Application 4" class="w-full h-200 object-cover rounded-t-lg">
+                         alt="Application 4" class="w-full h-48 object-cover rounded-t-lg">
                     <div class="p-6">
                         <h3 id="app4Title" class="text-xl font-bold mb-2 text-white">Reservation of Mini Soccer Field Information System</h3>
                         <p id="app4Desc" class="text-slate-400">
                             An Information System for a mini soccer sport services.
                         </p>
                     </div>
-                </div>
+                </a>
 
             </div>
         </section>
@@ -273,7 +271,15 @@
         // --- Dynamic Class Application for App Cards ---
         function applyCardStyles() {
             const appCardClasses = 'glass-effect rounded-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-sky-500/20 border border-transparent hover:border-sky-500';
-            document.querySelectorAll('.app-card').forEach(el => el.className = `${el.className} ${appCardClasses}`);
+            // Select the anchor tags which are now the cards
+            document.querySelectorAll('a.app-card').forEach(el => {
+                // Check if the classes are already applied to avoid duplication
+                const existingClasses = el.className.split(' ');
+                const classesToAdd = appCardClasses.split(' ').filter(c => !existingClasses.includes(c));
+                if (classesToAdd.length > 0) {
+                    el.className += ' ' + classesToAdd.join(' ');
+                }
+            });
         }
         applyCardStyles();
 
