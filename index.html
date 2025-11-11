@@ -66,7 +66,7 @@
         .aurora-1 {
             width: 500px;
             height: 500px;
-            background: #38bdf8; /* sky-500 */
+            background: #f59e0b; /* amber-500 */
             top: -150px;
             left: -150px;
             animation: moveAurora1 20s infinite alternate ease-in-out;
@@ -75,7 +75,7 @@
         .aurora-2 {
             width: 400px;
             height: 400px;
-            background: #a78bfa; /* violet-400 */
+            background: #f97316; /* orange-500 */
             top: 50px;
             right: -100px;
             animation: moveAurora2 25s infinite alternate ease-in-out;
@@ -111,13 +111,13 @@
 
         /* --- Text & Links --- */
         .gradient-text {
-            background: linear-gradient(to right, #38bdf8, #a78bfa);
+            background: linear-gradient(to right, #f59e0b, #fbbf24); /* amber-500 to amber-400 */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         /* --- Light Mode Overrides --- */
-        html:not(.dark) .text-slate-300 { color: #475569; } /* slate-600 */
+        html:not(.dark) .text-slate-300 { color: #475569; } /* slate-600 */ 
         html:not(.dark) .text-slate-400 { color: #64748b; } /* slate-500 */
         html:not(.dark) .text-slate-500 { color: #94a3b8; } /* slate-400 */
         html:not(.dark) .text-white { color: #0f172a; } /* slate-900 */
@@ -149,6 +149,11 @@
             margin: 0 auto 8px;
             transition: transform 0.3s ease;
         }
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--text-dark);
+        }
     </style>
 </head>
 
@@ -164,13 +169,13 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-extrabold tracking-wider gradient-text">MSY</a>
             <nav class="hidden md:flex items-center space-x-8">
-                <a id="navHome" href="#home" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Home</a>
-                <a id="navAbout" href="#about" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">About</a>
-                <a id="navSkills" href="#skills" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Skills</a>
-                <a id="navTools" href="#tools" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Tools</a>
-                <a id="navProjects" href="#projects" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Projects</a>
-                <a id="navCertificates" href="#certificates" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Certificates</a>
-                <a id="navContact" href="#contact" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Contact</a>
+                <a id="navHome" href="#home" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Home</a>
+                <a id="navAbout" href="#about" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">About</a>
+                <a id="navSkills" href="#skills" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Skills</a>
+                <a id="navTools" href="#tools" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Tools</a>
+                <a id="navProjects" href="#projects" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Projects</a>
+                <!-- <a id="navCertificates" href="#certificates" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Certificates</a> -->
+                <a id="navContact" href="#contact" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Contact</a>
             </nav>
             <div class="flex items-center space-x-2">
                  <div id="languageSwitcher" class="flex items-center space-x-1 p-1 rounded-full bg-slate-700/50">
@@ -188,13 +193,13 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 glass-effect border-t border-slate-800">
-            <a id="mobileNavHome" href="#home" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Home</a>
-            <a id="mobileNavAbout" href="#about" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">About</a>
-            <a id="mobileNavSkills" href="#skills" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Skills</a>
-            <a id="mobileNavTools" href="#tools" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Tools</a>
-            <a id="mobileNavProjects" href="#projects" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Projects</a>
-            <a id="mobileNavCertificates" href="#certificates" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Certificates</a>
-            <a id="mobileNavContact" href="#contact" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
+            <a id="mobileNavHome" href="#home" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Home</a>
+            <a id="mobileNavAbout" href="#about" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">About</a>
+            <a id="mobileNavSkills" href="#skills" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Skills</a>
+            <a id="mobileNavTools" href="#tools" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Tools</a>
+            <a id="mobileNavProjects" href="#projects" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Projects</a>
+            <!-- <a id="mobileNavCertificates" href="#certificates" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Certificates</a> -->
+            <a id="mobileNavContact" href="#contact" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Contact</a>
         </div>
     </header>
 
@@ -206,8 +211,8 @@
                  onerror="this.onerror=null;this.src='https://placehold.co/180x180/0f172a/e2e8f0?text=MSY';" 
                  alt="Profile Picture" class="w-44 h-44 rounded-full object-cover mb-6 border-4 border-slate-700 shadow-2xl shadow-slate-900/50">
             <h1 id="heroGreeting" class="text-4xl md:text-6xl font-extrabold mb-4">Hi, I'm <span class="gradient-text">Muhammad Syafiq Yusuf</span></h1>
-            <p id="heroDescription" class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8">A Passionate Front-End Developer and Multimedia Enthusiast, crafting beautiful and functional digital experiences.</p>
-            <a href="#projects" id="heroButton" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-sky-500/30">
+            <p id="heroDescription" class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8">A passionate Full Stack Developer, Graphic Designer, and Game Developer, dedicated to creating innovative and engaging digital experiences.</p>
+            <a href="#projects" id="heroButton" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/30">
                 View My Work
             </a>
         </section>
@@ -215,19 +220,20 @@
         <!-- About Section -->
         <section id="about" class="section-padding">
             <h2 id="aboutHeading" class="section-title">About Me</h2>
-            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-                <div class="md:w-1/2 flex justify-center">
-                     <div class="relative w-full max-w-sm">
-                        <div class="absolute -inset-2 bg-gradient-to-r from-sky-500 to-violet-500 rounded-lg blur opacity-50"></div>
-                        <img src="https://placehold.co/400x400/0f172a/e2e8f0?text=About" 
-                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/0f172a/e2e8f0?text=About';" 
-                             alt="About Me Image" class="relative rounded-lg shadow-2xl w-full">
-                     </div>
-                </div>
-                <div class="md:w-1/2 text-center md:text-left">
+            <!-- New About Me Layout -->
+            <div class="glass-effect rounded-xl shadow-lg overflow-hidden">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-3/5 p-8 md:p-12 text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-4 text-white">A Creative Mind, A Technical Hand</h3>
                     <p id="aboutParagraph" class="text-slate-400 leading-relaxed">
-                        As a dedicated and creative professional, I have honed my skills across the dual landscapes of multimedia and technology. I am highly competent in photo and video editing, photography, and graphic design, with a keen eye for visual storytelling. In parallel, I am passionate about the world of programming, specializing as a Front-End Developer where I enjoy bringing ideas to life with clean, efficient code and intuitive user interfaces.
+                        As a versatile and creative professional, I bring a unique blend of skills in full stack development, graphic design, and game development. I am passionate about building comprehensive web solutions, creating compelling visual designs, and developing interactive games. My goal is to merge technical expertise with creative vision to deliver innovative and engaging digital experiences.
                     </p>
+                    </div>
+                    <div class="md:w-2/5">
+                        <img src="https://placehold.co/400x400/0f172a/fbbf24?text=MSY" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/400x400/0f172a/fbbf24?text=MSY';" 
+                             alt="About Me Image" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
         </section>
@@ -235,20 +241,18 @@
         <!-- Skills Section -->
         <section id="skills" class="section-padding">
             <h2 id="skillsHeading" class="section-title">My Skills</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 text-center">
-                <div class="skill-item">HTML</div>
-                <div class="skill-item">CSS</div>
-                <div class="skill-item">JavaScript</div>
-                <div class="skill-item">Java</div>
-                <div class="skill-item">Python</div>
-                <div class="skill-item">Flutter</div>
-                <div class="skill-item">Android</div>
-                <div class="skill-item">Web Design</div>
-                <div class="skill-item">Photo & Video Editing</div>
-                <div class="skill-item">Graphic Design</div>
-                <div class="skill-item">Photography</div>
-                <div class="skill-item">Videography</div>
-                <div class="skill-item">Game Developer</div>
+            <!-- New Skills Layout with Icons -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="skill-item"><i data-feather="code" class="skill-icon"></i><span>HTML, CSS, JS</span></div>
+                <div class="skill-item"><i data-feather="database" class="skill-icon"></i><span>Java & Python</span></div>
+                <div class="skill-item"><i data-feather="smartphone" class="skill-icon"></i><span>Flutter & Android</span></div>
+                <div class="skill-item"><i data-feather="layout" class="skill-icon"></i><span>Web Design</span></div>
+                <div class="skill-item"><i data-feather="pen-tool" class="skill-icon"></i><span>Graphic Design</span></div>
+                <div class="skill-item"><i data-feather="film" class="skill-icon"></i><span>Video Editing</span></div>
+                <div class="skill-item"><i data-feather="camera" class="skill-icon"></i><span>Photography</span></div>
+                <div class="skill-item"><i data-feather="box" class="skill-icon"></i><span>Game Development</span></div>
+                <div class="skill-item"><i data-feather="server" class="skill-icon"></i><span>Full Stack Dev</span></div>
+                <div class="skill-item"><i data-feather="video" class="skill-icon"></i><span>Videography</span></div>
             </div>
         </section>
 
@@ -269,7 +273,8 @@
         <!-- Projects Section -->
         <section id="projects" class="section-padding">
             <h2 id="projectsHeading" class="section-title">My Projects</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- New 3-Column Project Layout -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <a href="aplikasi.html" class="project-card">
                     <h3 class="text-xl font-semibold mb-2">Applications</h3>
                     <p class="text-slate-400">View my application projects.</p>
@@ -282,24 +287,20 @@
                     <h3 class="text-xl font-semibold mb-2">Editing Results</h3>
                     <p class="text-slate-400">See my photo and video editing portfolio.</p>
                 </a>
-                <a href="#" class="project-card">
-                    <h3 class="text-xl font-semibold mb-2">Task Projects</h3>
-                    <p class="text-slate-400">A collection of various task-based projects.</p>
-                </a>
             </div>
         </section>
 
         <!-- Certificates Section -->
-        <section id="certificates" class="section-padding">
+        <!-- <section id="certificates" class="section-padding">
             <h2 id="certificatesHeading" class="section-title">My Certificates</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <div class="certificate-item"><img src="Sertif 1.png" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 1" class="rounded-md"></div>
                 <div class="certificate-item"><img src="Sertif 2.png" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 2" class="rounded-md"></div>
-                <div class="certificate-item"><img src="" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 3" class="rounded-md"></div>
+                <div class="certificate-item"><img src="Sertif 3.png" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 3" class="rounded-md"></div>
                 <div class="certificate-item"><img src="Sertif 4.png" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 4" class="rounded-md"></div>
                 <div class="certificate-item"><img src="Sertif 5.png" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0f172a/334155?text=Sertifikat';" alt="Certificate 5" class="rounded-md"></div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Contact Section -->
         <section id="contact" class="section-padding">
@@ -310,7 +311,7 @@
                     <input type="text" id="name" name="from_name" placeholder="Your Name" class="form-input" required>
                     <input type="email" id="email" name="from_email" placeholder="Your Email" class="form-input" required>
                     <textarea id="message" name="message" placeholder="Your Message" rows="5" class="form-input" required></textarea>
-                    <button type="submit" id="sendButton" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-sky-500/30">
+                    <button type="submit" id="sendButton" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-amber-500/30">
                         Send Message
                     </button>
                 </form>
@@ -334,7 +335,7 @@
     </footer>
 
     <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 bg-sky-500/80 hover:bg-sky-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 z-50">
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 bg-amber-500/80 hover:bg-amber-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 z-50">
         <i data-feather="arrow-up" class="w-6 h-6"></i>
     </button>
 
@@ -343,7 +344,7 @@
         <div id="modalContent" class="glass-effect rounded-lg p-8 shadow-xl w-11/12 max-w-sm transform transition-transform duration-300 scale-95">
             <h3 id="modalTitle" class="text-2xl font-bold mb-4"></h3>
             <p id="modalMessage" class="text-slate-300"></p>
-            <button id="closeModalBtn" class="mt-6 w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">Close</button>
+            <button id="closeModalBtn" class="mt-6 w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors">Close</button>
         </div>
     </div>
 
@@ -393,12 +394,17 @@
 
         // --- Dynamic Class Application ---
         function applyStyles() {
-            const skillItemClasses = 'glass-effect p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/20';
+            const skillItemClasses = 'glass-effect p-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20 flex items-center gap-4';
             const toolItemClasses = 'glass-effect p-4 rounded-lg transition-all duration-300 text-center hover:bg-slate-700/50';
-            const projectCardClasses = 'glass-effect p-6 rounded-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/20 border border-transparent hover:border-sky-500';
+            const projectCardClasses = 'glass-effect p-6 rounded-lg transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-orange-500/20 border border-transparent hover:border-amber-500';
             const certificateItemClasses = 'glass-effect p-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg';
-            const formInputClasses = 'w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all';
-            const socialLinkClasses = 'p-3 rounded-full glass-effect text-slate-300 hover:text-sky-400 transition-all duration-300 hover:scale-110';
+            const formInputClasses = 'w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all';
+            const socialLinkClasses = 'p-3 rounded-full glass-effect text-slate-300 hover:text-amber-400 transition-all duration-300 hover:scale-110';
+
+            // Re-run feather icons after adding new ones dynamically
+            feather.replace({
+                'stroke-width': 1.5
+            });
 
             document.querySelectorAll('.skill-item').forEach(el => el.className = skillItemClasses);
             document.querySelectorAll('.tool-item').forEach(el => {
@@ -485,10 +491,10 @@
             en: {
                 navHome: "Home", navAbout: "About", navSkills: "Skills", navTools: "Tools", navProjects: "Projects", navCertificates: "Certificates", navContact: "Contact",
                 heroGreeting: "Hi, I'm <span class='gradient-text'>Muhammad Syafiq Yusuf</span>",
-                heroDescription: "A Passionate Front-End Developer and Multimedia Enthusiast, crafting beautiful and functional digital experiences.",
+                heroDescription: "A passionate Full Stack Developer, Graphic Designer, and Game Developer, dedicated to creating innovative and engaging digital experiences.",
                 heroButton: "View My Work",
                 aboutHeading: "About Me",
-                aboutParagraph: "As a dedicated and creative professional, I have honed my skills across the dual landscapes of multimedia and technology. I am highly competent in photo and video editing, photography, and graphic design, with a keen eye for visual storytelling. In parallel, I am passionate about the world of programming, specializing as a Front-End Developer where I enjoy bringing ideas to life with clean, efficient code and intuitive user interfaces.",
+                aboutParagraph: "As a versatile and creative professional, I bring a unique blend of skills in full stack development, graphic design, and game development. I am passionate about building comprehensive web solutions, creating compelling visual designs, and developing interactive games. My goal is to merge technical expertise with creative vision to deliver innovative and engaging digital experiences.",
                 skillsHeading: "My Skills",
                 toolsHeading: "Tools & Software",
                 projectsHeading: "My Projects",
@@ -504,10 +510,10 @@
             id: {
                 navHome: "Beranda", navAbout: "Tentang", navSkills: "Keahlian", navTools: "Alat", navProjects: "Proyek", navCertificates: "Sertifikat", navContact: "Kontak",
                 heroGreeting: "Hai, saya <span class='gradient-text'>Muhammad Syafiq Yusuf</span>",
-                heroDescription: "Seorang Front-End Developer dan Penggemar Multimedia yang Penuh Semangat, menciptakan pengalaman digital yang indah dan fungsional.",
+                heroDescription: "Seorang Full Stack Developer, Desainer Grafis, dan Game Developer yang bersemangat, berdedikasi untuk menciptakan pengalaman digital yang inovatif dan menarik.",
                 heroButton: "Lihat Karya Saya",
                 aboutHeading: "Tentang Saya",
-                aboutParagraph: "Sebagai seorang profesional yang berdedikasi dan kreatif, saya telah mengasah keterampilan saya di dua bidang utama: multimedia dan teknologi. Saya sangat kompeten dalam editing foto dan video, fotografi, dan desain grafis, dengan kepekaan visual yang tajam untuk penceritaan. Di sisi lain, saya memiliki gairah di dunia pemrograman, dengan spesialisasi sebagai Front-End Developer di mana saya menikmati proses mengubah ide menjadi kenyataan melalui kode yang bersih, efisien, dan antarmuka pengguna yang intuitif.",
+                aboutParagraph: "Sebagai seorang profesional yang serba bisa dan kreatif, saya membawa perpaduan unik antara keahlian dalam pengembangan full stack, desain grafis, dan pengembangan game. Saya bersemangat dalam membangun solusi web yang komprehensif, menciptakan desain visual yang menarik, dan mengembangkan game interaktif. Tujuan saya adalah menggabungkan keahlian teknis dengan visi kreatif untuk memberikan pengalaman digital yang inovatif dan menarik.",
                 skillsHeading: "Keahlian Saya",
                 toolsHeading: "Alat & Perangkat Lunak",
                 projectsHeading: "Proyek Saya",
@@ -547,7 +553,7 @@
             
             // Update active language button style
             document.querySelectorAll('#languageSwitcher button').forEach(btn => {
-                btn.classList.toggle('bg-sky-500', btn.innerText.toLowerCase() === lang);
+                btn.classList.toggle('bg-amber-500', btn.innerText.toLowerCase() === lang);
                 btn.classList.toggle('text-white', btn.innerText.toLowerCase() === lang);
             });
         }
@@ -558,5 +564,3 @@
 </body>
 
 </html>
-
-
