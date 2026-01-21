@@ -331,6 +331,7 @@
     <footer class="border-t border-slate-800 mt-16">
         <div class="container mx-auto px-6 py-6 text-center text-slate-500">
             <p id="footerText">&copy; 2025 Muhammad Syafiq Yusuf. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-60"><span id="visitorLabel">Total Visitors: </span><span id="visitorCount" class="font-mono">...</span></p>
         </div>
     </footer>
 
@@ -505,7 +506,8 @@
                 emailPlaceholder: "Your Email",
                 messagePlaceholder: "Your Message",
                 sendButton: "Send Message",
-                footerText: "© 2025 Muhammad Syafiq Yusuf. All rights reserved."
+                footerText: "© 2025 Muhammad Syafiq Yusuf. All rights reserved.",
+                visitorLabel: "Total Visitors: "
             },
             id: {
                 navHome: "Beranda", navAbout: "Tentang", navSkills: "Keahlian", navTools: "Alat", navProjects: "Proyek", navCertificates: "Sertifikat", navContact: "Kontak",
@@ -524,7 +526,8 @@
                 emailPlaceholder: "Email Anda",
                 messagePlaceholder: "Pesan Anda",
                 sendButton: "Kirim Pesan",
-                footerText: "© 2025 Muhammad Syafiq Yusuf. Hak cipta dilindungi undang-undang."
+                footerText: "© 2025 Muhammad Syafiq Yusuf. Hak cipta dilindungi undang-undang.",
+                visitorLabel: "Total Pengunjung: "
             }
         };
 
@@ -538,7 +541,7 @@
                 'aboutHeading': t.aboutHeading, 'aboutParagraph': t.aboutParagraph,
                 'skillsHeading': t.skillsHeading, 'toolsHeading': t.toolsHeading, 'projectsHeading': t.projectsHeading, 'certificatesHeading': t.certificatesHeading,
                 'contactHeading': t.contactHeading, 'contactSubheading': t.contactSubheading, 'sendButton': t.sendButton,
-                'footerText': t.footerText
+                'footerText': t.footerText, 'visitorLabel': t.visitorLabel
             };
             for (const id in elements) {
                 const el = document.getElementById(id);
@@ -559,6 +562,14 @@
         }
         
         setLanguage('en');
+
+        // --- Visitor Counter ---
+        fetch('counter.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('visitorCount').innerText = data.count;
+            })
+            .catch(error => console.error('Error loading visitor count:', error));
 
     </script>
 </body>
