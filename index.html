@@ -176,6 +176,9 @@
                 <a id="navProjects" href="#projects" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Projects</a>
                 <!-- <a id="navCertificates" href="#certificates" class="text-slate-300 hover:text-sky-400 transition-colors duration-300">Certificates</a> -->
                 <a id="navContact" href="#contact" class="text-slate-300 hover:text-amber-400 transition-colors duration-300">Contact</a>
+                <a href="https://github.com/maaafiqs" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-amber-400 transition-colors duration-300 flex items-center gap-1.5">
+                    <i data-feather="github" class="w-4 h-4"></i> GitHub
+                </a>
             </nav>
             <div class="flex items-center space-x-2">
                  <div id="languageSwitcher" class="flex items-center space-x-1 p-1 rounded-full bg-slate-700/50">
@@ -200,6 +203,9 @@
             <a id="mobileNavProjects" href="#projects" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Projects</a>
             <!-- <a id="mobileNavCertificates" href="#certificates" class="block py-2 text-slate-300 hover:text-sky-400 transition-colors">Certificates</a> -->
             <a id="mobileNavContact" href="#contact" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors">Contact</a>
+            <a href="https://github.com/maaafiqs" target="_blank" rel="noopener noreferrer" class="block py-2 text-slate-300 hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i data-feather="github" class="w-4 h-4"></i> GitHub
+            </a>
         </div>
     </header>
 
@@ -243,14 +249,14 @@
             <h2 id="skillsHeading" class="section-title">My Skills</h2>
             <!-- New Skills Layout with Icons -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <div class="skill-item"><i data-feather="code" class="skill-icon"></i><span>PHP & JavaScript</span></div>
-                <div class="skill-item"><i data-feather="database" class="skill-icon"></i><span>Java & Python</span></div>
+                <div class="skill-item"><i data-feather="code" class="skill-icon"></i><span>HTML, CSS, JS</span></div>
+                <div class="skill-item"><i data-feather="cpu" class="skill-icon"></i><span>Java & Python</span></div>
                 <div class="skill-item"><i data-feather="smartphone" class="skill-icon"></i><span>Flutter & Android</span></div>
                 <div class="skill-item"><i data-feather="layout" class="skill-icon"></i><span>Web Design</span></div>
                 <div class="skill-item"><i data-feather="pen-tool" class="skill-icon"></i><span>Graphic Design</span></div>
-                <div class="skill-item"><i data-feather="film" class="skill-icon"></i><span>Video Editing</span></div>
+                <div class="skill-item"><i data-feather="scissors" class="skill-icon"></i><span>Video Editing</span></div>
                 <div class="skill-item"><i data-feather="camera" class="skill-icon"></i><span>Photography</span></div>
-                <div class="skill-item"><i data-feather="box" class="skill-icon"></i><span>Game Development</span></div>
+                <div class="skill-item"><i data-feather="target" class="skill-icon"></i><span>Game Development</span></div>
                 <div class="skill-item"><i data-feather="server" class="skill-icon"></i><span>Full Stack Dev</span></div>
                 <div class="skill-item"><i data-feather="video" class="skill-icon"></i><span>Videography</span></div>
             </div>
@@ -324,14 +330,13 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>fdgfdgfdg
     </main>
 
     <!-- Footer -->
     <footer class="border-t border-slate-800 mt-16">
         <div class="container mx-auto px-6 py-6 text-center text-slate-500">
             <p id="footerText">&copy; 2025 Muhammad Syafiq Yusuf. All rights reserved.</p>
-            <p class="text-xs mt-2 opacity-60"><span id="visitorLabel">Total Visitors: </span><span id="visitorCount" class="font-mono">...</span></p>
         </div>
     </footer>
 
@@ -506,8 +511,7 @@
                 emailPlaceholder: "Your Email",
                 messagePlaceholder: "Your Message",
                 sendButton: "Send Message",
-                footerText: "© 2025 Muhammad Syafiq Yusuf. All rights reserved.",
-                visitorLabel: "Total Visitors: "
+                footerText: "© 2025 Muhammad Syafiq Yusuf. All rights reserved."
             },
             id: {
                 navHome: "Beranda", navAbout: "Tentang", navSkills: "Keahlian", navTools: "Alat", navProjects: "Proyek", navCertificates: "Sertifikat", navContact: "Kontak",
@@ -526,8 +530,7 @@
                 emailPlaceholder: "Email Anda",
                 messagePlaceholder: "Pesan Anda",
                 sendButton: "Kirim Pesan",
-                footerText: "© 2025 Muhammad Syafiq Yusuf. Hak cipta dilindungi undang-undang.",
-                visitorLabel: "Total Pengunjung: "
+                footerText: "© 2025 Muhammad Syafiq Yusuf. Hak cipta dilindungi undang-undang."
             }
         };
 
@@ -541,7 +544,7 @@
                 'aboutHeading': t.aboutHeading, 'aboutParagraph': t.aboutParagraph,
                 'skillsHeading': t.skillsHeading, 'toolsHeading': t.toolsHeading, 'projectsHeading': t.projectsHeading, 'certificatesHeading': t.certificatesHeading,
                 'contactHeading': t.contactHeading, 'contactSubheading': t.contactSubheading, 'sendButton': t.sendButton,
-                'footerText': t.footerText, 'visitorLabel': t.visitorLabel
+                'footerText': t.footerText
             };
             for (const id in elements) {
                 const el = document.getElementById(id);
@@ -562,14 +565,6 @@
         }
         
         setLanguage('en');
-
-        // --- Visitor Counter ---
-        fetch('counter.php')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitorCount').innerText = data.count;
-            })
-            .catch(error => console.error('Error loading visitor count:', error));
 
     </script>
 </body>
